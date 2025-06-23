@@ -1,0 +1,50 @@
+naming_style onespin
+# Name Radix Color Is_Clock
+clk DEFAULT DEFAULT { true} { false}
+rst DEFAULT DEFAULT { false} { false}
+{SEPARATOR_Instruction Memory} NONE DEFAULT { false} { false}
+U1/instr_rvalid_i DEFAULT DEFAULT { false} { false}
+U2/instr_rvalid_i DEFAULT DEFAULT { false} { false}
+U1/instr_rdata_i DEFAULT DEFAULT { false} { false}
+U2/instr_rdata_i DEFAULT DEFAULT { false} { false}
+SEPARATOR_CSR NONE DEFAULT { false} { false}
+U1/cs_registers_i/xsecure_ctrl_o DEFAULT DEFAULT { false} { false}
+U2/cs_registers_i/xsecure_ctrl_o DEFAULT DEFAULT { false} { false}
+{SEPARATOR_Register File} NONE DEFAULT { false} { false}
+U1/register_file_wrapper_i/raddr_i DEFAULT DEFAULT { false} { false}
+U2/register_file_wrapper_i/raddr_i DEFAULT DEFAULT { false} { false}
+U1/register_file_wrapper_i/rdata_o DEFAULT DEFAULT { false} { false}
+U2/register_file_wrapper_i/rdata_o DEFAULT DEFAULT { false} { false}
+U1/register_file_wrapper_i/we_i DEFAULT DEFAULT { false} { false}
+U2/register_file_wrapper_i/we_i DEFAULT DEFAULT { false} { false}
+U1/register_file_wrapper_i/waddr_i DEFAULT DEFAULT { false} { false}
+U2/register_file_wrapper_i/waddr_i DEFAULT DEFAULT { false} { false}
+U1/register_file_wrapper_i/wdata_i DEFAULT DEFAULT { false} { false}
+U2/register_file_wrapper_i/wdata_i DEFAULT DEFAULT { false} { false}
+{SEPARATOR_Leakage Path} NONE DEFAULT { false} { false}
+U1/id_stage_i/id_ex_pipe_o DEFAULT DEFAULT { false} { false}
+U2/id_stage_i/id_ex_pipe_o DEFAULT DEFAULT { false} { false}
+U1/load_store_unit_i/trans DEFAULT DEFAULT { false} { false}
+U2/load_store_unit_i/trans DEFAULT DEFAULT { false} { false}
+U1/load_store_unit_i/wpt_trans DEFAULT DEFAULT { false} { false}
+U2/load_store_unit_i/wpt_trans DEFAULT DEFAULT { false} { false}
+U1/load_store_unit_i/gen_wpt/wpt_i/core_trans_valid_i DEFAULT DEFAULT { false} { false}
+U2/load_store_unit_i/gen_wpt/wpt_i/core_trans_valid_i DEFAULT DEFAULT { false} { false}
+U1/load_store_unit_i/gen_wpt/wpt_i/core_trans_i DEFAULT DEFAULT { false} { false}
+U2/load_store_unit_i/gen_wpt/wpt_i/core_trans_i DEFAULT DEFAULT { false} { false}
+U1/load_store_unit_i/mpu_i/bus_trans_o DEFAULT DEFAULT { false} { false}
+U2/load_store_unit_i/mpu_i/bus_trans_o DEFAULT DEFAULT { false} { false}
+U1/load_store_unit_i/write_buffer_i/trans_o DEFAULT DEFAULT { false} { false}
+U2/load_store_unit_i/write_buffer_i/trans_o DEFAULT DEFAULT { false} { false}
+U1/data_addr_o DEFAULT DEFAULT { false} { false}
+U2/data_addr_o DEFAULT DEFAULT { false} { false}
+U1/data_be_o DEFAULT DEFAULT { false} { false}
+U2/data_be_o DEFAULT DEFAULT { false} { false}
+U1/data_wdata_o DEFAULT DEFAULT { false} { false}
+U2/data_wdata_o DEFAULT DEFAULT { false} { false}
+U1/data_achk_o DEFAULT DEFAULT { false} { false}
+U2/data_achk_o DEFAULT DEFAULT { false} { false}
+U1/data_we_o DEFAULT DEFAULT { false} { false}
+U2/data_we_o DEFAULT DEFAULT { false} { false}
+U1/data_req_o DEFAULT DEFAULT { false} { false}
+U2/data_req_o DEFAULT DEFAULT { false} { false}

@@ -1,0 +1,194 @@
+module property_checker import cv32e40s_pkg::*;
+  (
+  input clk,
+  input rst
+  );
+
+default clocking default_clk @(posedge clk); endclocking
+
+`include "tidal.sv"
+
+`include "state_equivalence.sva"
+`include "control_state_equivalence.sva"
+`include "control_output_equivalence.sva"
+
+`begin_tda(ops)
+
+  property control_input_c;
+    (U1.boot_addr_i         == U2.boot_addr_i        )  &&
+    (U1.clic_irq_i          == U2.clic_irq_i         )  &&
+    (U1.clic_irq_id_i       == U2.clic_irq_id_i      )  &&
+    (U1.clic_irq_level_i    == U2.clic_irq_level_i   )  &&
+    (U1.clic_irq_priv_i     == U2.clic_irq_priv_i    )  &&
+    (U1.clic_irq_shv_i      == U2.clic_irq_shv_i     )  &&
+    (U1.data_err_i          == U2.data_err_i         )  &&
+    (U1.data_gnt_i          == U2.data_gnt_i         )  &&
+    (U1.data_gntpar_i       == U2.data_gntpar_i      )  &&
+    (U1.data_rchk_i         == U2.data_rchk_i        )  &&
+//    (U1.data_rdata_i        == U2.data_rdata_i       )  &&
+    (U1.data_rvalid_i       == U2.data_rvalid_i      )  &&
+    (U1.data_rvalidpar_i    == U2.data_rvalidpar_i   )  &&
+    (U1.debug_req_i         == U2.debug_req_i        )  &&
+    (U1.dm_exception_addr_i == U2.dm_exception_addr_i)  &&
+    (U1.dm_halt_addr_i      == U2.dm_halt_addr_i     )  &&
+    (U1.fencei_flush_ack_i  == U2.fencei_flush_ack_i )  &&
+    (U1.fetch_enable_i      == U2.fetch_enable_i     )  &&
+    (U1.instr_err_i         == U2.instr_err_i        )  &&
+    (U1.instr_gnt_i         == U2.instr_gnt_i        )  &&
+    (U1.instr_gntpar_i      == U2.instr_gntpar_i     )  &&
+    (U1.instr_rchk_i        == U2.instr_rchk_i       )  &&
+    (U1.instr_rdata_i       == U2.instr_rdata_i      )  &&
+    (U1.instr_rvalid_i      == U2.instr_rvalid_i     )  &&
+    (U1.instr_rvalidpar_i   == U2.instr_rvalidpar_i  )  &&
+    (U1.irq_i               == U2.irq_i              )  &&
+    (U1.mhartid_i           == U2.mhartid_i          )  &&
+    (U1.mimpid_patch_i      == U2.mimpid_patch_i     )  &&
+    (U1.mtvec_addr_i        == U2.mtvec_addr_i       )  &&
+    (U1.scan_cg_en_i        == U2.scan_cg_en_i       )  &&
+    (U1.wu_wfe_i            == U2.wu_wfe_i           );
+  endproperty
+  control_input_c_a: assume property (control_input_c);
+
+  property black_box_output_c;
+//    (U1.register_file_wrapper_i.rdata_o   == U2.register_file_wrapper_i.rdata_o  ) &&
+    (U1.register_file_wrapper_i.ecc_err_o == U2.register_file_wrapper_i.ecc_err_o);
+  endproperty
+  black_box_output_c_a: assume property (black_box_output_c);
+
+
+  property dataindtiming_c;
+    (U1.cs_registers_i.xsecure_ctrl_o.cpuctrl.dataindtiming == 1'b1) &&
+    (U2.cs_registers_i.xsecure_ctrl_o.cpuctrl.dataindtiming == 1'b1);
+  endproperty
+  dataindtiming_c_a: assume property (dataindtiming_c);
+
+  property no_dummy_instr_c;
+    (U1.cs_registers_i.xsecure_ctrl_o.cpuctrl.rnddummy == 1'b0) &&
+    (U2.cs_registers_i.xsecure_ctrl_o.cpuctrl.rnddummy == 1'b0);
+  endproperty
+  no_dummy_instr_c_a: assume property (no_dummy_instr_c);
+
+  property no_debug_mode_c;
+    (U1.debug_req_i == 1'b0) &&
+    (U2.debug_req_i == 1'b0);
+  endproperty
+  no_debug_mode_c_a: assume property (no_debug_mode_c);
+
+  property division_c;
+    // Division unit proven to be data-oblivious with dataindtiming active
+    (U1.ex_stage_i.div.div_i.valid_o == U2.ex_stage_i.div.div_i.valid_o);
+  endproperty
+  division_c_a: assume property (division_c);
+  
+  function automatic excluded_instructions(instr[31:0]);
+  excluded_instructions = (
+    (instr[1:0] == 2'b11) && // Compressed instructions (for now)
+    !(instr[6:0] == 7'b1110011) && // CSR instructions
+    !((instr[14:12] == 3'b000) && (instr[6:0] == 7'b1100111)) && // JALR
+    !(                            (instr[6:0] == 7'b1101111)) && // JAL
+    !((instr[14:12] == 3'b001) && (instr[6:0] == 7'b1100011)) && // BNE
+    !((instr[14:12] == 3'b111) && (instr[6:0] == 7'b1100011)) && // BGEU
+    !((instr[14:12] == 3'b000) && (instr[6:0] == 7'b1100011)) && // BEQ
+    !((instr[14:12] == 3'b110) && (instr[6:0] == 7'b1100011)) && // BLTU
+    !((instr[14:12] == 3'b101) && (instr[6:0] == 7'b1100011)) && // BGE
+    !((instr[14:12] == 3'b100) && (instr[6:0] == 7'b1100011)) && // BLT
+    !((instr[14:12] == 3'b010) && (instr[6:0] == 7'b0000011)) && // LW
+    !((instr[14:12] == 3'b001) && (instr[6:0] == 7'b0000011)) && // LH
+    !((instr[14:12] == 3'b101) && (instr[6:0] == 7'b0000011)) && // LHU
+    !((instr[14:12] == 3'b010) && (instr[6:0] == 7'b0100011)) && // SW
+    !((instr[14:12] == 3'b001) && (instr[6:0] == 7'b0100011))    // SH
+  );
+  endfunction
+
+  property excluded_instructions_c;
+    excluded_instructions(U1.instr_rdata_i) &&
+    excluded_instructions(U2.instr_rdata_i);
+  endproperty
+  excluded_instructions_c_a: assume property (excluded_instructions_c);
+
+  function automatic invariant();
+  invariant = (
+    (U1.controller_i.controller_fsm_i.debug_mode_q == 1'b0) &&
+    (U2.controller_i.controller_fsm_i.debug_mode_q == 1'b0) &&
+
+    (U1.cs_registers_i.debug_triggers_i.gen_triggers.tmatch_csr[0].tdata1_csr_i.rdata_q == TDATA1_RST_VAL) &&
+    (U2.cs_registers_i.debug_triggers_i.gen_triggers.tmatch_csr[0].tdata1_csr_i.rdata_q == TDATA1_RST_VAL) &&
+
+    (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.addr_q[1:0] == 2'b00) &&
+    (U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.addr_q[1:0] == 2'b00) &&
+
+    excluded_instructions(U1.if_stage_i.if_id_pipe_o.instr.bus_resp.rdata) &&
+    excluded_instructions(U2.if_stage_i.if_id_pipe_o.instr.bus_resp.rdata) &&
+    (U1.if_stage_i.if_id_pipe_o.instr_meta.compressed == 1'b0) &&
+    (U2.if_stage_i.if_id_pipe_o.instr_meta.compressed == 1'b0) &&
+
+    excluded_instructions(U1.id_stage_i.id_ex_pipe_o.instr.bus_resp.rdata) &&
+    excluded_instructions(U2.id_stage_i.id_ex_pipe_o.instr.bus_resp.rdata) &&
+    (U1.id_stage_i.id_ex_pipe_o.instr_meta.compressed == 1'b0) &&
+    (U2.id_stage_i.id_ex_pipe_o.instr_meta.compressed == 1'b0) &&
+    (U1.id_stage_i.id_ex_pipe_o.csr_en == 1'b0) &&
+    (U2.id_stage_i.id_ex_pipe_o.csr_en == 1'b0) &&
+
+    excluded_instructions(U1.ex_stage_i.ex_wb_pipe_o.instr.bus_resp.rdata) &&
+    excluded_instructions(U2.ex_stage_i.ex_wb_pipe_o.instr.bus_resp.rdata) &&
+    (U1.ex_stage_i.ex_wb_pipe_o.instr_meta.compressed == 1'b0) &&
+    (U2.ex_stage_i.ex_wb_pipe_o.instr_meta.compressed == 1'b0) &&
+    (U1.ex_stage_i.ex_wb_pipe_o.csr_en == 1'b0) &&
+    (U2.ex_stage_i.ex_wb_pipe_o.csr_en == 1'b0) &&
+
+    (U1.if_stage_i.pc_check_i.pc_mux_q != PC_BRANCH) &&
+    (U2.if_stage_i.pc_check_i.pc_mux_q != PC_BRANCH) &&
+    (U1.ctrl_fsm.pc_mux != PC_BRANCH) &&
+    (U2.ctrl_fsm.pc_mux != PC_BRANCH) &&
+    (U1.ctrl_fsm.pc_mux != PC_TRAP_DBD) &&
+    (U2.ctrl_fsm.pc_mux != PC_TRAP_DBD) &&
+
+    (U1.load_store_unit_i.split_q == 1'b0) &&
+    (U2.load_store_unit_i.split_q == 1'b0) &&
+    (U1.id_stage_i.id_ex_pipe_o.lsu_size == 2'b00) &&
+    (U2.id_stage_i.id_ex_pipe_o.lsu_size == 2'b00)
+  );
+  endfunction
+
+  sequence reset_sequence;
+    (rst == 1'b0);
+  endsequence
+
+  property reset_p;
+    t ##0 reset_sequence
+  implies
+    t ##1 invariant();
+  endproperty
+  reset_p_a: assert property (reset_p);
+
+  property invariant_p;
+    t ##0 invariant()
+  implies
+    t ##1 invariant();
+  endproperty
+  invariant_p_a: assert property (disable iff (rst) invariant_p);
+
+  property addr_leakage_p;
+    t ##0 state_equivalence() and
+    t ##0 (U1.data_addr_o == '0) and
+    t ##0 (U2.data_addr_o == '0)
+  implies
+    t ##1 (U1.data_req_o == U2.data_req_o) and
+    t ##1 (U1.data_req_o == 1'b1) || (U1.data_addr_o == U2.data_addr_o);
+  endproperty
+  addr_leakage_p_a: assert property (disable iff (rst) addr_leakage_p);
+
+  property upec_dit_p;
+    t ##0 control_state_equivalence() and 
+    t ##0 invariant() [*2]
+  implies
+    t ##1 control_state_equivalence() and
+    t ##1 control_output_equivalence();
+  endproperty
+  upec_dit_p_a: assert property (disable iff (rst) upec_dit_p);
+
+`end_tda
+
+endmodule
+
+bind cv32e40s_miter property_checker checker_bind(.clk(clk), .rst(rst));

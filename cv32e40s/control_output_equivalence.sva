@@ -1,0 +1,45 @@
+function automatic black_box_input_equivalence();
+black_box_input_equivalence = (
+  (U1.register_file_wrapper_i.hint_instr_id_i  == U2.register_file_wrapper_i.hint_instr_id_i ) &&
+  (U1.register_file_wrapper_i.hint_instr_wb_i  == U2.register_file_wrapper_i.hint_instr_wb_i ) &&
+  (U1.register_file_wrapper_i.dummy_instr_id_i == U2.register_file_wrapper_i.dummy_instr_id_i) &&
+  (U1.register_file_wrapper_i.dummy_instr_wb_i == U2.register_file_wrapper_i.dummy_instr_wb_i) &&
+  (U1.register_file_wrapper_i.raddr_i          == U2.register_file_wrapper_i.raddr_i         ) &&
+  (U1.register_file_wrapper_i.waddr_i          == U2.register_file_wrapper_i.waddr_i         ) &&
+//  (U1.register_file_wrapper_i.wdata_i          == U2.register_file_wrapper_i.wdata_i         ) &&
+  (U1.register_file_wrapper_i.we_i             == U2.register_file_wrapper_i.we_i            )
+);
+endfunction
+
+function automatic control_output_equivalence();
+control_output_equivalence = (
+  black_box_input_equivalence()                    &&
+  (U1.alert_major_o      == U2.alert_major_o     ) &&
+  (U1.alert_minor_o      == U2.alert_minor_o     ) &&
+  (U1.core_sleep_o       == U2.core_sleep_o      ) &&
+//  (U1.data_achk_o        == U2.data_achk_o       ) &&
+//  (U1.data_addr_o        == U2.data_addr_o       ) &&
+//  (U1.data_be_o          == U2.data_be_o         ) &&
+  (U1.data_dbg_o         == U2.data_dbg_o        ) &&
+  (U1.data_memtype_o     == U2.data_memtype_o    ) &&
+  (U1.data_prot_o        == U2.data_prot_o       ) &&
+  (U1.data_req_o         == U2.data_req_o        ) &&
+  (U1.data_reqpar_o      == U2.data_reqpar_o     ) &&
+//  (U1.data_wdata_o       == U2.data_wdata_o      ) &&
+  (U1.data_we_o          == U2.data_we_o         ) &&
+  (U1.debug_halted_o     == U2.debug_halted_o    ) &&
+  (U1.debug_havereset_o  == U2.debug_havereset_o ) &&
+  (U1.debug_pc_o         == U2.debug_pc_o        ) &&
+  (U1.debug_pc_valid_o   == U2.debug_pc_valid_o  ) &&
+  (U1.debug_running_o    == U2.debug_running_o   ) &&
+  (U1.fencei_flush_req_o == U2.fencei_flush_req_o) &&
+  (U1.instr_achk_o       == U2.instr_achk_o      ) &&
+  (U1.instr_addr_o       == U2.instr_addr_o      ) &&
+  (U1.instr_dbg_o        == U2.instr_dbg_o       ) &&
+  (U1.instr_memtype_o    == U2.instr_memtype_o   ) &&
+  (U1.instr_prot_o       == U2.instr_prot_o      ) &&
+  (U1.instr_req_o        == U2.instr_req_o       ) &&
+  (U1.instr_reqpar_o     == U2.instr_reqpar_o    ) &&
+  (U1.mcycle_o           == U2.mcycle_o          )
+);
+endfunction

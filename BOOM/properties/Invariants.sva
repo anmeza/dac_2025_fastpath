@@ -1,0 +1,374 @@
+// @lang=sva @ts=8
+
+`include "consts.sva"
+
+function automatic BranchKillableQueue_Pointers_Valid_i();
+BranchKillableQueue_Pointers_Valid_i = (
+  (U1.jmp_unit.queue.value                 < 3'h5) && (U2.jmp_unit.queue.value                 < 3'h5) &&
+  (U1.jmp_unit.queue.value_1               < 3'h5) && (U2.jmp_unit.queue.value_1               < 3'h5) &&
+  (U1.fp_pipeline.fpiu_unit.queue.value    < 3'h7) && (U2.fp_pipeline.fpiu_unit.queue.value    < 3'h7) &&
+  (U1.fp_pipeline.fpiu_unit.queue.value_1  < 3'h7) && (U2.fp_pipeline.fpiu_unit.queue.value_1  < 3'h7) &&
+  (U1.fp_pipeline.fpiu_unit.fp_sdq.value   < 2'h3) && (U2.fp_pipeline.fpiu_unit.fp_sdq.value   < 2'h3) &&
+  (U1.fp_pipeline.fpiu_unit.fp_sdq.value_1 < 2'h3) && (U2.fp_pipeline.fpiu_unit.fp_sdq.value_1 < 2'h3)
+);
+endfunction
+
+/*
+TODO: Why can fu_code be 20? (FU_MEM + FU_DIV)
+      The CEX shows an funct3+opcode combination that should not be possible
+*/
+function automatic Rename_Stage_Consistent_i();
+Rename_Stage_Consistent_i = (
+  (!U1.rename_stage.r_valid || 
+  $onehot0({U1.rename_stage.r_uop_is_amo, 
+            U1.rename_stage.r_uop_is_br,
+            U1.rename_stage.r_uop_is_fence,
+            U1.rename_stage.r_uop_is_fencei,  
+            U1.rename_stage.r_uop_is_jal,  
+            U1.rename_stage.r_uop_is_jalr}) &&
+  !(U1.rename_stage.r_uop_uses_ldq && U1.rename_stage.r_uop_uses_stq) &&
+  !((U1.rename_stage.r_uop_uopc < uopREMUW ) && (U1.rename_stage.r_uop_is_amo   )) && // No idea why REMUW sets this bit
+  !((U1.rename_stage.r_uop_uopc < uopBEQ   ) && (U1.rename_stage.r_uop_is_br    )) &&
+  !((U1.rename_stage.r_uop_uopc < uopFENCE ) && (U1.rename_stage.r_uop_is_fence )) &&
+  !((U1.rename_stage.r_uop_uopc < uopJAL   ) && (U1.rename_stage.r_uop_is_jal   )) &&
+  !((U1.rename_stage.r_uop_uopc < uopJALR  ) && (U1.rename_stage.r_uop_is_jalr  ))// &&
+  //($onehot(U1.rename_stage.r_uop_fu_code) || (U1.rename_stage.r_uop_fu_code == 10'd20))
+  ) &&
+  (!U1.rename_stage.r_valid_1 || 
+  $onehot0({U1.rename_stage.r_uop_1_is_amo, 
+            U1.rename_stage.r_uop_1_is_br,
+            U1.rename_stage.r_uop_1_is_fence,
+            U1.rename_stage.r_uop_1_is_fencei,  
+            U1.rename_stage.r_uop_1_is_jal,  
+            U1.rename_stage.r_uop_1_is_jalr}) &&
+  !(U1.rename_stage.r_uop_1_uses_ldq && U1.rename_stage.r_uop_1_uses_stq) &&
+  !((U1.rename_stage.r_uop_1_uopc < uopREMUW ) && (U1.rename_stage.r_uop_1_is_amo   )) &&
+  !((U1.rename_stage.r_uop_1_uopc < uopBEQ   ) && (U1.rename_stage.r_uop_1_is_br    )) &&
+  !((U1.rename_stage.r_uop_1_uopc < uopFENCE ) && (U1.rename_stage.r_uop_1_is_fence )) &&
+  !((U1.rename_stage.r_uop_1_uopc < uopJAL   ) && (U1.rename_stage.r_uop_1_is_jal   )) &&
+  !((U1.rename_stage.r_uop_1_uopc < uopJALR  ) && (U1.rename_stage.r_uop_1_is_jalr  )) //&&
+  //($onehot(U1.rename_stage.r_uop_1_fu_code) || (U1.rename_stage.r_uop_1_fu_code == 10'd20))
+  ) &&
+  (!U2.rename_stage.r_valid || 
+  $onehot0({U2.rename_stage.r_uop_is_amo, 
+            U2.rename_stage.r_uop_is_br,
+            U2.rename_stage.r_uop_is_fence,
+            U2.rename_stage.r_uop_is_fencei,  
+            U2.rename_stage.r_uop_is_jal,  
+            U2.rename_stage.r_uop_is_jalr}) &&
+  !(U2.rename_stage.r_uop_uses_ldq && U2.rename_stage.r_uop_uses_stq) &&
+  !((U2.rename_stage.r_uop_uopc < uopREMUW ) && (U2.rename_stage.r_uop_is_amo   )) &&
+  !((U2.rename_stage.r_uop_uopc < uopBEQ   ) && (U2.rename_stage.r_uop_is_br    )) &&
+  !((U2.rename_stage.r_uop_uopc < uopFENCE ) && (U2.rename_stage.r_uop_is_fence )) &&
+  !((U2.rename_stage.r_uop_uopc < uopJAL   ) && (U2.rename_stage.r_uop_is_jal   )) &&
+  !((U2.rename_stage.r_uop_uopc < uopJALR  ) && (U2.rename_stage.r_uop_is_jalr  )) //&&
+  //($onehot(U2.rename_stage.r_uop_fu_code) || (U2.rename_stage.r_uop_fu_code == 10'd20))
+  ) &&
+  (!U2.rename_stage.r_valid_1 || 
+  $onehot0({U2.rename_stage.r_uop_1_is_amo, 
+            U2.rename_stage.r_uop_1_is_br,
+            U2.rename_stage.r_uop_1_is_fence,
+            U2.rename_stage.r_uop_1_is_fencei,  
+            U2.rename_stage.r_uop_1_is_jal,  
+            U2.rename_stage.r_uop_1_is_jalr}) &&
+  !(U2.rename_stage.r_uop_1_uses_ldq && U2.rename_stage.r_uop_1_uses_stq) &&
+  !((U2.rename_stage.r_uop_1_uopc < uopREMUW ) && (U2.rename_stage.r_uop_1_is_amo   )) &&
+  !((U2.rename_stage.r_uop_1_uopc < uopBEQ   ) && (U2.rename_stage.r_uop_1_is_br    )) &&
+  !((U2.rename_stage.r_uop_1_uopc < uopFENCE ) && (U2.rename_stage.r_uop_1_is_fence )) &&
+  !((U2.rename_stage.r_uop_1_uopc < uopJAL   ) && (U2.rename_stage.r_uop_1_is_jal   )) &&
+  !((U2.rename_stage.r_uop_1_uopc < uopJALR  ) && (U2.rename_stage.r_uop_1_is_jalr  )) //&&
+  //($onehot(U2.rename_stage.r_uop_1_fu_code) || (U2.rename_stage.r_uop_1_fu_code == 10'd20))
+  )
+);
+endfunction
+
+
+function automatic Issue_Stage_Consistent_i(int slot_nr);
+Issue_Stage_Consistent_i = (
+  (int_issue_slot_state[slot_nr] == 2'd0) || 
+  $onehot0({int_issue_slot_uop_is_amo[slot_nr], 
+            int_issue_slot_uop_is_br[slot_nr],
+            int_issue_slot_uop_is_fence[slot_nr],
+            int_issue_slot_uop_is_jal[slot_nr],  
+            int_issue_slot_uop_is_jalr[slot_nr]}) &&
+  !(int_issue_slot_uop_uses_ldq[slot_nr] && int_issue_slot_uop_uses_stq[slot_nr]) &&
+  (!(int_issue_slot_state[slot_nr] == 2'd2) || (int_issue_slot_uop_uopc[slot_nr] == uopSTA || int_issue_slot_uop_uopc[slot_nr] == uopAMO_AG)) &&
+
+  !((int_issue_slot_uop_uopc[slot_nr] >= uopADDI) && (int_issue_slot_uop_uopc[slot_nr] < uopREMUW) && int_issue_slot_uop_is_amo[slot_nr]  ) &&
+  !((int_issue_slot_uop_uopc[slot_nr] >= uopADDI) && (int_issue_slot_uop_uopc[slot_nr] < uopBEQ  ) && int_issue_slot_uop_is_br[slot_nr]   ) &&
+  !((int_issue_slot_uop_uopc[slot_nr] >= uopADDI) && (int_issue_slot_uop_uopc[slot_nr] < uopFENCE) && int_issue_slot_uop_is_fence[slot_nr]) &&
+  !((int_issue_slot_uop_uopc[slot_nr] >= uopADDI) && (int_issue_slot_uop_uopc[slot_nr] < uopJAL  ) && int_issue_slot_uop_is_jal[slot_nr]  ) &&
+  !((int_issue_slot_uop_uopc[slot_nr] >= uopADDI) && (int_issue_slot_uop_uopc[slot_nr] < uopJALR ) && int_issue_slot_uop_is_jalr[slot_nr] ) &&
+
+  // No opcodes of other queues
+  ((int_issue_slot_uop_uopc[slot_nr] >= uopLUI     ) && (int_issue_slot_uop_uopc[slot_nr] <= uopCSRRCI) ||
+   (int_issue_slot_uop_uopc[slot_nr] >= uopJAL     ) && (int_issue_slot_uop_uopc[slot_nr] <= uopAUIPC ) ||
+   (int_issue_slot_uop_uopc[slot_nr] >= uopFENCE   ) && (int_issue_slot_uop_uopc[slot_nr] <= uopFENCEI) ||
+   (int_issue_slot_uop_uopc[slot_nr] == uopFMV_S_X )                                                    || 
+   (int_issue_slot_uop_uopc[slot_nr] == uopFMV_D_X )                                                    || 
+   (int_issue_slot_uop_uopc[slot_nr] == uopFCVT_S_X)                                                    || 
+   (int_issue_slot_uop_uopc[slot_nr] == uopFCVT_D_X)                                                    || 
+   (int_issue_slot_uop_uopc[slot_nr] == uopWFI     )                                                    || 
+   (int_issue_slot_uop_uopc[slot_nr] == uopERET    )) &&
+
+  ($onehot(int_issue_slot_uop_fu_code[slot_nr]))
+
+);
+endfunction
+
+
+function automatic FP_Issue_Stage_Consistent_i(int slot_nr);
+FP_Issue_Stage_Consistent_i = (
+  (fp_issue_slot_state[slot_nr] == 2'd0) || 
+  ($onehot(fp_issue_slot_uop_fu_code[slot_nr]) || (fp_issue_slot_uop_fu_code[slot_nr] == 10'd516)) &&
+
+  // FPU FU -> FPU Instruction
+  ((fp_issue_slot_uop_fu_code[slot_nr][6] == 1'd0) || (fp_issue_slot_uop_uopc[slot_nr] >= uopFSGNJ_S) && (fp_issue_slot_uop_uopc[slot_nr] <= uopFCVT_D_S) || (fp_issue_slot_uop_uopc[slot_nr] >= uopFMINMAX_S) && (fp_issue_slot_uop_uopc[slot_nr] <= uopFNMSUB_D)) &&
+
+  // FDV FU -> FDIV or FSQRT Instruction
+  ((fp_issue_slot_uop_fu_code[slot_nr][7] == 1'd0) || (fp_issue_slot_uop_uopc[slot_nr] >= uopFDIV_S) && (fp_issue_slot_uop_uopc[slot_nr] <= uopFSQRT_D)) &&
+
+  // No opcodes of other queues
+  ((fp_issue_slot_uop_uopc[slot_nr] == uopSTA     )                                                     ||
+   (fp_issue_slot_uop_uopc[slot_nr] >= uopFMV_X_S ) && (fp_issue_slot_uop_uopc[slot_nr] <= uopFCVT_D_S) ||
+   (fp_issue_slot_uop_uopc[slot_nr] >= uopFCVT_X_S) && (fp_issue_slot_uop_uopc[slot_nr] <= uopFSQRT_D ))
+
+);
+endfunction
+
+  // --------------
+  // - Invariants -
+  // --------------
+
+  property invariants_c;
+    BranchKillableQueue_Pointers_Valid_i() and
+    Rename_Stage_Consistent_i() and
+    Issue_Stage_Consistent_i(0) and
+    Issue_Stage_Consistent_i(1) and
+    Issue_Stage_Consistent_i(2) and
+    Issue_Stage_Consistent_i(3) and
+    Issue_Stage_Consistent_i(4) and
+    Issue_Stage_Consistent_i(5) and
+    Issue_Stage_Consistent_i(6) and
+    Issue_Stage_Consistent_i(7) and
+    Issue_Stage_Consistent_i(8) and
+    Issue_Stage_Consistent_i(9) and
+    Issue_Stage_Consistent_i(10) and
+    Issue_Stage_Consistent_i(11) and
+    Issue_Stage_Consistent_i(12) and
+    Issue_Stage_Consistent_i(13) and
+    Issue_Stage_Consistent_i(14) and
+    Issue_Stage_Consistent_i(15) and
+    Issue_Stage_Consistent_i(16) and
+    Issue_Stage_Consistent_i(17) and
+    Issue_Stage_Consistent_i(18) and
+    Issue_Stage_Consistent_i(19) and
+    Issue_Stage_Consistent_i(20) and
+    Issue_Stage_Consistent_i(21) and
+    Issue_Stage_Consistent_i(22) and
+    Issue_Stage_Consistent_i(23) and
+    Issue_Stage_Consistent_i(24) and
+    Issue_Stage_Consistent_i(25) and
+    Issue_Stage_Consistent_i(26) and
+    Issue_Stage_Consistent_i(27) and
+    Issue_Stage_Consistent_i(28) and
+    Issue_Stage_Consistent_i(29) and
+    Issue_Stage_Consistent_i(30) and
+    Issue_Stage_Consistent_i(31) and
+    Issue_Stage_Consistent_i(32) and
+    Issue_Stage_Consistent_i(33) and
+    Issue_Stage_Consistent_i(34) and
+    Issue_Stage_Consistent_i(35) and
+    Issue_Stage_Consistent_i(36) and
+    Issue_Stage_Consistent_i(37) and
+    Issue_Stage_Consistent_i(38) and
+    Issue_Stage_Consistent_i(39) and
+    FP_Issue_Stage_Consistent_i(0) and
+    FP_Issue_Stage_Consistent_i(1) and
+    FP_Issue_Stage_Consistent_i(2) and
+    FP_Issue_Stage_Consistent_i(3) and
+    FP_Issue_Stage_Consistent_i(4) and
+    FP_Issue_Stage_Consistent_i(5) and
+    FP_Issue_Stage_Consistent_i(6) and
+    FP_Issue_Stage_Consistent_i(7) and
+    FP_Issue_Stage_Consistent_i(8) and
+    FP_Issue_Stage_Consistent_i(9) and
+    FP_Issue_Stage_Consistent_i(10) and
+    FP_Issue_Stage_Consistent_i(11) and
+    FP_Issue_Stage_Consistent_i(12) and
+    FP_Issue_Stage_Consistent_i(13) and
+    FP_Issue_Stage_Consistent_i(14) and
+    FP_Issue_Stage_Consistent_i(15) and
+    FP_Issue_Stage_Consistent_i(16) and
+    FP_Issue_Stage_Consistent_i(17) and
+    FP_Issue_Stage_Consistent_i(18) and
+    FP_Issue_Stage_Consistent_i(19) and
+    FP_Issue_Stage_Consistent_i(20) and
+    FP_Issue_Stage_Consistent_i(21) and
+    FP_Issue_Stage_Consistent_i(22) and
+    FP_Issue_Stage_Consistent_i(23) and
+    FP_Issue_Stage_Consistent_i(24) and
+    FP_Issue_Stage_Consistent_i(25) and
+    FP_Issue_Stage_Consistent_i(26) and
+    FP_Issue_Stage_Consistent_i(27) and
+    FP_Issue_Stage_Consistent_i(28) and
+    FP_Issue_Stage_Consistent_i(29) and
+    FP_Issue_Stage_Consistent_i(30) and
+    FP_Issue_Stage_Consistent_i(31);
+  endproperty
+  invariants_c_a: assume property (invariants_c);
+
+/*
+  property invariant_p;
+    t ##0 BranchKillableQueue_Pointers_Valid_i() and
+    t ##0 Rename_Stage_Consistent_i() and
+    t ##0 Issue_Stage_Consistent_i(0) and
+    t ##0 Issue_Stage_Consistent_i(1) and
+    t ##0 Issue_Stage_Consistent_i(2) and
+    t ##0 Issue_Stage_Consistent_i(3) and
+    t ##0 Issue_Stage_Consistent_i(4) and
+    t ##0 Issue_Stage_Consistent_i(5) and
+    t ##0 Issue_Stage_Consistent_i(6) and
+    t ##0 Issue_Stage_Consistent_i(7) and
+    t ##0 Issue_Stage_Consistent_i(8) and
+    t ##0 Issue_Stage_Consistent_i(9) and
+    t ##0 Issue_Stage_Consistent_i(10) and
+    t ##0 Issue_Stage_Consistent_i(11) and
+    t ##0 Issue_Stage_Consistent_i(12) and
+    t ##0 Issue_Stage_Consistent_i(13) and
+    t ##0 Issue_Stage_Consistent_i(14) and
+    t ##0 Issue_Stage_Consistent_i(15) and
+    t ##0 Issue_Stage_Consistent_i(16) and
+    t ##0 Issue_Stage_Consistent_i(17) and
+    t ##0 Issue_Stage_Consistent_i(18) and
+    t ##0 Issue_Stage_Consistent_i(19) and
+    t ##0 Issue_Stage_Consistent_i(20) and
+    t ##0 Issue_Stage_Consistent_i(21) and
+    t ##0 Issue_Stage_Consistent_i(22) and
+    t ##0 Issue_Stage_Consistent_i(23) and
+    t ##0 Issue_Stage_Consistent_i(24) and
+    t ##0 Issue_Stage_Consistent_i(25) and
+    t ##0 Issue_Stage_Consistent_i(26) and
+    t ##0 Issue_Stage_Consistent_i(27) and
+    t ##0 Issue_Stage_Consistent_i(28) and
+    t ##0 Issue_Stage_Consistent_i(29) and
+    t ##0 Issue_Stage_Consistent_i(30) and
+    t ##0 Issue_Stage_Consistent_i(31) and
+    t ##0 Issue_Stage_Consistent_i(32) and
+    t ##0 Issue_Stage_Consistent_i(33) and
+    t ##0 Issue_Stage_Consistent_i(34) and
+    t ##0 Issue_Stage_Consistent_i(35) and
+    t ##0 Issue_Stage_Consistent_i(36) and
+    t ##0 Issue_Stage_Consistent_i(37) and
+    t ##0 Issue_Stage_Consistent_i(38) and
+    t ##0 Issue_Stage_Consistent_i(39) and
+    t ##0 FP_Issue_Stage_Consistent_i(0) and
+    t ##0 FP_Issue_Stage_Consistent_i(1) and
+    t ##0 FP_Issue_Stage_Consistent_i(2) and
+    t ##0 FP_Issue_Stage_Consistent_i(3) and
+    t ##0 FP_Issue_Stage_Consistent_i(4) and
+    t ##0 FP_Issue_Stage_Consistent_i(5) and
+    t ##0 FP_Issue_Stage_Consistent_i(6) and
+    t ##0 FP_Issue_Stage_Consistent_i(7) and
+    t ##0 FP_Issue_Stage_Consistent_i(8) and
+    t ##0 FP_Issue_Stage_Consistent_i(9) and
+    t ##0 FP_Issue_Stage_Consistent_i(10) and
+    t ##0 FP_Issue_Stage_Consistent_i(11) and
+    t ##0 FP_Issue_Stage_Consistent_i(12) and
+    t ##0 FP_Issue_Stage_Consistent_i(13) and
+    t ##0 FP_Issue_Stage_Consistent_i(14) and
+    t ##0 FP_Issue_Stage_Consistent_i(15) and
+    t ##0 FP_Issue_Stage_Consistent_i(16) and
+    t ##0 FP_Issue_Stage_Consistent_i(17) and
+    t ##0 FP_Issue_Stage_Consistent_i(18) and
+    t ##0 FP_Issue_Stage_Consistent_i(19) and
+    t ##0 FP_Issue_Stage_Consistent_i(20) and
+    t ##0 FP_Issue_Stage_Consistent_i(21) and
+    t ##0 FP_Issue_Stage_Consistent_i(22) and
+    t ##0 FP_Issue_Stage_Consistent_i(23) and
+    t ##0 FP_Issue_Stage_Consistent_i(24) and
+    t ##0 FP_Issue_Stage_Consistent_i(25) and
+    t ##0 FP_Issue_Stage_Consistent_i(26) and
+    t ##0 FP_Issue_Stage_Consistent_i(27) and
+    t ##0 FP_Issue_Stage_Consistent_i(28) and
+    t ##0 FP_Issue_Stage_Consistent_i(29) and
+    t ##0 FP_Issue_Stage_Consistent_i(30) and
+    t ##0 FP_Issue_Stage_Consistent_i(31)
+    implies
+    t ##1 BranchKillableQueue_Pointers_Valid_i() and
+    t ##1 Rename_Stage_Consistent_i() and
+    t ##1 Issue_Stage_Consistent_i(0) and
+    t ##1 Issue_Stage_Consistent_i(1) and
+    t ##1 Issue_Stage_Consistent_i(2) and
+    t ##1 Issue_Stage_Consistent_i(3) and
+    t ##1 Issue_Stage_Consistent_i(4) and
+    t ##1 Issue_Stage_Consistent_i(5) and
+    t ##1 Issue_Stage_Consistent_i(6) and
+    t ##1 Issue_Stage_Consistent_i(7) and
+    t ##1 Issue_Stage_Consistent_i(8) and
+    t ##1 Issue_Stage_Consistent_i(9) and
+    t ##1 Issue_Stage_Consistent_i(10) and
+    t ##1 Issue_Stage_Consistent_i(11) and
+    t ##1 Issue_Stage_Consistent_i(12) and
+    t ##1 Issue_Stage_Consistent_i(13) and
+    t ##1 Issue_Stage_Consistent_i(14) and
+    t ##1 Issue_Stage_Consistent_i(15) and
+    t ##1 Issue_Stage_Consistent_i(16) and
+    t ##1 Issue_Stage_Consistent_i(17) and
+    t ##1 Issue_Stage_Consistent_i(18) and
+    t ##1 Issue_Stage_Consistent_i(19) and
+    t ##1 Issue_Stage_Consistent_i(20) and
+    t ##1 Issue_Stage_Consistent_i(21) and
+    t ##1 Issue_Stage_Consistent_i(22) and
+    t ##1 Issue_Stage_Consistent_i(23) and
+    t ##1 Issue_Stage_Consistent_i(24) and
+    t ##1 Issue_Stage_Consistent_i(25) and
+    t ##1 Issue_Stage_Consistent_i(26) and
+    t ##1 Issue_Stage_Consistent_i(27) and
+    t ##1 Issue_Stage_Consistent_i(28) and
+    t ##1 Issue_Stage_Consistent_i(29) and
+    t ##1 Issue_Stage_Consistent_i(30) and
+    t ##1 Issue_Stage_Consistent_i(31) and
+    t ##1 Issue_Stage_Consistent_i(32) and
+    t ##1 Issue_Stage_Consistent_i(33) and
+    t ##1 Issue_Stage_Consistent_i(34) and
+    t ##1 Issue_Stage_Consistent_i(35) and
+    t ##1 Issue_Stage_Consistent_i(36) and
+    t ##1 Issue_Stage_Consistent_i(37) and
+    t ##1 Issue_Stage_Consistent_i(38) and
+    t ##1 Issue_Stage_Consistent_i(39) and
+    t ##1 FP_Issue_Stage_Consistent_i(0) and
+    t ##1 FP_Issue_Stage_Consistent_i(1) and
+    t ##1 FP_Issue_Stage_Consistent_i(2) and
+    t ##1 FP_Issue_Stage_Consistent_i(3) and
+    t ##1 FP_Issue_Stage_Consistent_i(4) and
+    t ##1 FP_Issue_Stage_Consistent_i(5) and
+    t ##1 FP_Issue_Stage_Consistent_i(6) and
+    t ##1 FP_Issue_Stage_Consistent_i(7) and
+    t ##1 FP_Issue_Stage_Consistent_i(8) and
+    t ##1 FP_Issue_Stage_Consistent_i(9) and
+    t ##1 FP_Issue_Stage_Consistent_i(10) and
+    t ##1 FP_Issue_Stage_Consistent_i(11) and
+    t ##1 FP_Issue_Stage_Consistent_i(12) and
+    t ##1 FP_Issue_Stage_Consistent_i(13) and
+    t ##1 FP_Issue_Stage_Consistent_i(14) and
+    t ##1 FP_Issue_Stage_Consistent_i(15) and
+    t ##1 FP_Issue_Stage_Consistent_i(16) and
+    t ##1 FP_Issue_Stage_Consistent_i(17) and
+    t ##1 FP_Issue_Stage_Consistent_i(18) and
+    t ##1 FP_Issue_Stage_Consistent_i(19) and
+    t ##1 FP_Issue_Stage_Consistent_i(20) and
+    t ##1 FP_Issue_Stage_Consistent_i(21) and
+    t ##1 FP_Issue_Stage_Consistent_i(22) and
+    t ##1 FP_Issue_Stage_Consistent_i(23) and
+    t ##1 FP_Issue_Stage_Consistent_i(24) and
+    t ##1 FP_Issue_Stage_Consistent_i(25) and
+    t ##1 FP_Issue_Stage_Consistent_i(26) and
+    t ##1 FP_Issue_Stage_Consistent_i(27) and
+    t ##1 FP_Issue_Stage_Consistent_i(28) and
+    t ##1 FP_Issue_Stage_Consistent_i(29) and
+    t ##1 FP_Issue_Stage_Consistent_i(30) and
+    t ##1 FP_Issue_Stage_Consistent_i(31);
+  endproperty
+  invariant_p_a: assert property (disable iff (reset) invariant_p);
+*/

@@ -1,0 +1,89 @@
+/*
+Properties following the original UPEC-DIT method.
+9 manual inspections before the data-dependency at the o_valid output was detected.
+
+Confirmend timing variations:
+ - Early termination due to division by zero
+ - In signed division, negative operands causes extra execution cycles (1 if both operands are negative, 2 if only one operand is negative)
+*/
+
+
+module property_checker
+  (
+  input clk,
+  input rst
+  );
+
+  default clocking default_clk @(posedge clk); endclocking
+
+
+    // ======================== //
+   // Control Input Constraint //
+  // ======================== //
+
+  property control_input_c;
+    (U1.i_signed == U2.i_signed) &&
+    (U1.i_wr     == U2.i_wr    );
+  endproperty
+  control_input_c_a: assume property (control_input_c);
+
+
+    //===========================//
+   // Control State Equivalence //
+  //===========================//
+
+  function automatic control_state_equivalence();
+    control_state_equivalence = (
+      (U1.last_bit     == U2.last_bit    ) &&
+//      (U1.pre_sign     == U2.pre_sign    ) &&
+//      (U1.r_bit        == U2.r_bit       ) &&
+      (U1.r_busy       == U2.r_busy      ) //&&
+//      (U1.r_c          == U2.r_c         ) &&
+//      (U1.r_dividend   == U2.r_dividend  ) &&
+//      (U1.r_divisor    == U2.r_divisor   ) &&
+//      (U1.r_sign       == U2.r_sign      ) &&
+//      (U1.r_z          == U2.r_z         ) &&
+//      (U1.zero_divisor == U2.zero_divisor)
+    );
+  endfunction
+
+
+    // ========================== //
+   // Control Output Equivalence //
+  // ========================== //
+  
+  function automatic control_output_equivalence();
+  control_output_equivalence = (
+    (U1.o_busy     == U2.o_busy    ) &&
+    (U1.o_valid    == U2.o_valid   ) &&
+    (U1.o_err      == U2.o_err     ) &&
+    (U1.o_quotient == U2.o_quotient)
+  );
+  endfunction
+
+
+
+    // ============== //
+   // Reset Sequence //
+  // ============== //
+
+  sequence reset_sequence;
+    (rst == 1'b1);
+  endsequence
+
+
+    // ================================ //
+   // UPEC for Data-Independent Timing //
+  // ================================ //
+
+  property upec_dit_step_p;
+    control_state_equivalence()
+    implies
+    ##1 control_state_equivalence() && control_output_equivalence();
+  endproperty
+  upec_dit_step_p_a: assert property (disable iff (rst) upec_dit_step_p);
+
+
+endmodule
+
+bind div_miter property_checker checker_bind(.clk(clk), .rst(rst));

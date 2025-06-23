@@ -1,0 +1,78 @@
+module property_checker
+  (
+  input clk_i,
+  input rst_i
+  );
+
+  default clocking default_clk @(posedge clk_i); endclocking
+
+
+    // ======================== //
+   // Control Input Constraint //
+  // ======================== //
+
+  property control_input_c;
+    (U1.cmd_i   == U2.cmd_i  ) &&
+    (U1.cmd_w_i == U2.cmd_w_i);
+  endproperty
+  control_input_c_a: assume property (control_input_c);
+
+
+    //===========================//
+   // Control State Equivalence //
+  //===========================//
+
+  function automatic control_state_equivalence();
+    control_state_equivalence = (
+      (U1.busy         == U2.busy        ) &&
+      (U1.cmd          == U2.cmd         ) &&
+      (U1.read_counter == U2.read_counter) &&
+      (U1.round        == U2.round       ) &&
+      (U1.Kt           == U2.Kt          )
+    );
+  endfunction
+
+
+    // ========================== //
+   // Control Output Equivalence //
+  // ========================== //
+  
+  function automatic control_output_equivalence();
+  control_output_equivalence = (
+    (U1.cmd_o == U2.cmd_o)
+  );
+  endfunction
+
+
+    // ============== //
+   // Reset Sequence //
+  // ============== //
+
+  sequence reset_sequence;
+    (rst_i == 1);
+  endsequence
+
+
+    // ================================ //
+   // UPEC for Data-Independent Timing //
+  // ================================ //
+
+  property upec_dit_step_p;
+    control_state_equivalence()
+  implies
+    ##1 control_state_equivalence() && control_output_equivalence();
+  endproperty
+  upec_dit_step_p_a: assert property (disable iff (rst_i) upec_dit_step_p);
+
+
+  property upec_dit_base_p;
+    reset_sequence
+  implies
+    ##1 control_state_equivalence() && control_output_equivalence();
+  endproperty
+  upec_dit_base_p_a: assert property (upec_dit_base_p);
+
+
+endmodule
+
+bind sha512_miter property_checker checker_bind(.clk_i(clk_i), .rst_i(rst_i));

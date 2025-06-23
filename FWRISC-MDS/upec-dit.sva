@@ -1,0 +1,96 @@
+module property_checker
+  // Adjust these parameters in the miter before elaboration with
+  // set_elaborate_option -verilog_parameter fwrisc_mul_div_shift_miter.ENABLE_MUL_DIV=1 etc.
+  #(
+  parameter ENABLE_MUL_DIV=1,
+  parameter ENABLE_MUL=ENABLE_MUL_DIV,
+  parameter ENABLE_DIV=ENABLE_MUL_DIV,
+  parameter SINGLE_CYCLE_SHIFT=0
+  )
+  (
+  input clk,
+  input rst
+  );
+
+  default clocking default_clk @(posedge clk); endclocking
+
+
+    // ======================== //
+   // Control Input Constraint //
+  // ======================== //
+
+  property control_input_c;
+    (U1.op == U2.op) &&
+    (U1.in_valid == U2.in_valid);
+  endproperty
+  control_input_c_a: assume property (control_input_c);
+
+
+    // ========================= //
+   // Control State Equivalence //
+  // ========================= //
+
+  function automatic control_state_equivalence();
+    control_state_equivalence = (
+      (U1.div_msk      == U2.div_msk     ) &&
+//      (U1.mul_res      == U2.mul_res     ) &&
+//      (U1.mul_tmp1     == U2.mul_tmp1    ) &&
+//      (U1.mul_tmp2     == U2.mul_tmp2    ) &&
+      (U1.op_r         == U2.op_r        ) &&
+      (U1.shift_amt_r  == U2.shift_amt_r ) &&
+      (U1.working      == U2.working     ) &&
+      (U1.out_valid    == U2.out_valid   )
+    );
+  endfunction
+
+
+    // ========================== //
+   // Control Output Equivalence //
+  // ========================== //
+
+  function automatic control_output_equivalence();
+    control_output_equivalence = (
+      (U1.out_valid == U2.out_valid)
+    );
+  endfunction
+
+
+    // =========== //
+   // Constraints //
+  // =========== //
+
+  function automatic no_shift_operation();
+    no_shift_operation = (
+      (U1.op != 4'b0000) && // SLL
+      (U1.op != 4'b0001) && // SRL
+      (U1.op != 4'b0010)    // SRA
+    );
+  endfunction
+
+
+    // ============== //
+   // Reset Sequence //
+  // ============== //
+
+  sequence reset_sequence;
+    (rst == 1);
+  endsequence
+
+
+    // ================================ //
+   // UPEC for Data-Independent Timing //
+  // ================================ //
+
+  property upec_dit_step_p;
+    control_state_equivalence() &&
+    no_shift_operation()
+  implies
+    ##1 control_state_equivalence() &&
+        control_output_equivalence();
+  endproperty
+  upec_dit_step_p_a: assert property (disable iff (rst) upec_dit_step_p);
+
+
+endmodule
+
+bind fwrisc_mul_div_shift_miter property_checker #(.ENABLE_MUL_DIV(ENABLE_MUL_DIV), .ENABLE_MUL(ENABLE_MUL), .ENABLE_DIV(ENABLE_DIV), .SINGLE_CYCLE_SHIFT(SINGLE_CYCLE_SHIFT)) checker_bind(.clk(clk), .rst(rst));

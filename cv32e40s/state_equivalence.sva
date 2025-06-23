@@ -1,0 +1,554 @@
+function automatic state_equivalence();
+state_equivalence = (
+  (U1.alert_i.alert_major_o == U2.alert_i.alert_major_o) &&
+  (U1.alert_i.alert_minor_o == U2.alert_i.alert_minor_o) &&
+  (U1.controller_i.controller_fsm_i.branch_taken_q == U2.controller_i.controller_fsm_i.branch_taken_q) &&
+  (U1.controller_i.controller_fsm_i.clic_ptr_in_progress_id == U2.controller_i.controller_fsm_i.clic_ptr_in_progress_id) &&
+  (U1.controller_i.controller_fsm_i.csr_flush_ack_q == U2.controller_i.controller_fsm_i.csr_flush_ack_q) &&
+  (U1.controller_i.controller_fsm_i.ctrl_fsm_cs == U2.controller_i.controller_fsm_i.ctrl_fsm_cs) &&
+  (U1.controller_i.controller_fsm_i.debug_cause_q == U2.controller_i.controller_fsm_i.debug_cause_q) &&
+  (U1.controller_i.controller_fsm_i.debug_fsm_cs == U2.controller_i.controller_fsm_i.debug_fsm_cs) &&
+  (U1.controller_i.controller_fsm_i.debug_mode_q == U2.controller_i.controller_fsm_i.debug_mode_q) &&
+  (U1.controller_i.controller_fsm_i.fence_req_q == U2.controller_i.controller_fsm_i.fence_req_q) &&
+  (U1.controller_i.controller_fsm_i.fencei_req_and_ack_q == U2.controller_i.controller_fsm_i.fencei_req_and_ack_q) &&
+  (U1.controller_i.controller_fsm_i.interrupt_blanking_q == U2.controller_i.controller_fsm_i.interrupt_blanking_q) &&
+  (U1.controller_i.controller_fsm_i.jump_taken_q == U2.controller_i.controller_fsm_i.jump_taken_q) &&
+  (U1.controller_i.controller_fsm_i.nmi_is_integrity_q == U2.controller_i.controller_fsm_i.nmi_is_integrity_q) &&
+  (U1.controller_i.controller_fsm_i.nmi_is_store_q == U2.controller_i.controller_fsm_i.nmi_is_store_q) &&
+  (U1.controller_i.controller_fsm_i.nmi_pending_q == U2.controller_i.controller_fsm_i.nmi_pending_q) &&
+  (U1.controller_i.controller_fsm_i.sequence_in_progress_id == U2.controller_i.controller_fsm_i.sequence_in_progress_id) &&
+  (U1.controller_i.controller_fsm_i.sequence_in_progress_wb == U2.controller_i.controller_fsm_i.sequence_in_progress_wb) &&
+  (U1.controller_i.controller_fsm_i.single_step_halt_if_q == U2.controller_i.controller_fsm_i.single_step_halt_if_q) &&
+  (U1.controller_i.controller_fsm_i.wb_counter_event == U2.controller_i.controller_fsm_i.wb_counter_event) &&
+  (U1.controller_i.controller_fsm_i.woke_to_debug_q == U2.controller_i.controller_fsm_i.woke_to_debug_q) &&
+  (U1.controller_i.controller_fsm_i.woke_to_interrupt_q == U2.controller_i.controller_fsm_i.woke_to_interrupt_q) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mcause_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mie_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.basic_mode_csrs.mtvec_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.debug_triggers_i.gen_triggers.tmatch_csr[0].tdata1_csr_i.rdata_q == U2.cs_registers_i.debug_triggers_i.gen_triggers.tmatch_csr[0].tdata1_csr_i.rdata_q) &&
+  (U1.cs_registers_i.debug_triggers_i.gen_triggers.tmatch_csr[0].tdata2_csr_i.rdata_q == U2.cs_registers_i.debug_triggers_i.gen_triggers.tmatch_csr[0].tdata2_csr_i.rdata_q) &&
+  (U1.cs_registers_i.debug_triggers_i.gen_triggers.tselect_csr_i.rdata_q == U2.cs_registers_i.debug_triggers_i.gen_triggers.tselect_csr_i.rdata_q) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.gen_debug_csr.dcsr_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.gen_debug_csr.dpc_csr_i.rdata_q == U2.cs_registers_i.gen_debug_csr.dpc_csr_i.rdata_q) &&
+  (U1.cs_registers_i.gen_debug_csr.dscratch0_csr_i.rdata_q == U2.cs_registers_i.gen_debug_csr.dscratch0_csr_i.rdata_q) &&
+  (U1.cs_registers_i.gen_debug_csr.dscratch1_csr_i.rdata_q == U2.cs_registers_i.gen_debug_csr.dscratch1_csr_i.rdata_q) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.jvt_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.jvt_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mcountinhibit_q == U2.cs_registers_i.mcountinhibit_q) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.mepc_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mepc_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mhpmcounter_q == U2.cs_registers_i.mhpmcounter_q) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.mscratch_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[10].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[13].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[14].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[15].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[20].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[22].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[23].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[24].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[25].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[26].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[27].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[28].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[29].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[30].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[31].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[5].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[6].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[8].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mscratch_csr_i.gen_hardened.gen_csr_hardened[9].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mstateen0_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.mstateen0_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.mstateen0_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mstateen0_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mstateen0_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mstateen0_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.mstatus_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[11].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[12].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[21].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.mstatus_csr_i.gen_hardened.gen_csr_hardened[7].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.privlvl_user.priv_lvl_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.core_clock_gate_i.clk_en == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.core_clock_gate_i.clk_en) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[0].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[16].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[17].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[18].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[19].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[1].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffr_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[2].gen_unmasked_hardened.gen_rv0.sffs_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[3].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv1.sffr_shadowreg.q_o) &&
+  (U1.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o == U2.cs_registers_i.xsecure.cpuctrl_csr_i.gen_hardened.gen_csr_hardened[4].gen_unmasked_hardened.gen_rv1.sffs_rdatareg.q_o) &&
+  (U1.cs_registers_i.xsecure.lfsr0_i.lfsr_q == U2.cs_registers_i.xsecure.lfsr0_i.lfsr_q) &&
+  (U1.cs_registers_i.xsecure.lfsr1_i.lfsr_q == U2.cs_registers_i.xsecure.lfsr1_i.lfsr_q) &&
+  (U1.cs_registers_i.xsecure.lfsr2_i.lfsr_q == U2.cs_registers_i.xsecure.lfsr2_i.lfsr_q) &&
+  (U1.ex_stage_i.div.div_i.cnt_q       == U2.ex_stage_i.div.div_i.cnt_q      ) &&
+  (U1.ex_stage_i.div.div_i.comp_inv_q  == U2.ex_stage_i.div.div_i.comp_inv_q ) &&
+  (U1.ex_stage_i.div.div_i.div_rem_q   == U2.ex_stage_i.div.div_i.div_rem_q  ) &&
+  (U1.ex_stage_i.div.div_i.divisor_q   == U2.ex_stage_i.div.div_i.divisor_q  ) &&
+  (U1.ex_stage_i.div.div_i.quotient_q  == U2.ex_stage_i.div.div_i.quotient_q ) &&
+  (U1.ex_stage_i.div.div_i.remainder_q == U2.ex_stage_i.div.div_i.remainder_q) &&
+  (U1.ex_stage_i.div.div_i.res_inv_q   == U2.ex_stage_i.div.div_i.res_inv_q  ) &&
+  (U1.ex_stage_i.div.div_i.state       == U2.ex_stage_i.div.div_i.state      ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.rf_we              == U2.ex_stage_i.ex_wb_pipe_o.rf_we              ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.rf_waddr           == U2.ex_stage_i.ex_wb_pipe_o.rf_waddr           ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.rf_wdata           == U2.ex_stage_i.ex_wb_pipe_o.rf_wdata           ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.alu_jmp_qual       == U2.ex_stage_i.ex_wb_pipe_o.alu_jmp_qual       ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.alu_bch_qual       == U2.ex_stage_i.ex_wb_pipe_o.alu_bch_qual       ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.alu_bch_taken_qual == U2.ex_stage_i.ex_wb_pipe_o.alu_bch_taken_qual ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.csr_en             == U2.ex_stage_i.ex_wb_pipe_o.csr_en             ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.csr_op             == U2.ex_stage_i.ex_wb_pipe_o.csr_op             ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.csr_addr           == U2.ex_stage_i.ex_wb_pipe_o.csr_addr           ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.csr_wdata          == U2.ex_stage_i.ex_wb_pipe_o.csr_wdata          ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.csr_mnxti_access   == U2.ex_stage_i.ex_wb_pipe_o.csr_mnxti_access   ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.lsu_en             == U2.ex_stage_i.ex_wb_pipe_o.lsu_en             ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.trigger_match      == U2.ex_stage_i.ex_wb_pipe_o.trigger_match      ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.pc                 == U2.ex_stage_i.ex_wb_pipe_o.pc                 ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.instr              == U2.ex_stage_i.ex_wb_pipe_o.instr              ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.instr_meta         == U2.ex_stage_i.ex_wb_pipe_o.instr_meta         ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.instr_valid        == U2.ex_stage_i.ex_wb_pipe_o.instr_valid        ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.illegal_insn       == U2.ex_stage_i.ex_wb_pipe_o.illegal_insn       ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.priv_lvl           == U2.ex_stage_i.ex_wb_pipe_o.priv_lvl           ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_en             == U2.ex_stage_i.ex_wb_pipe_o.sys_en             ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_dret_insn      == U2.ex_stage_i.ex_wb_pipe_o.sys_dret_insn      ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_ebrk_insn      == U2.ex_stage_i.ex_wb_pipe_o.sys_ebrk_insn      ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_ecall_insn     == U2.ex_stage_i.ex_wb_pipe_o.sys_ecall_insn     ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_fence_insn     == U2.ex_stage_i.ex_wb_pipe_o.sys_fence_insn     ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_fencei_insn    == U2.ex_stage_i.ex_wb_pipe_o.sys_fencei_insn    ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_mret_insn      == U2.ex_stage_i.ex_wb_pipe_o.sys_mret_insn      ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_wfi_insn       == U2.ex_stage_i.ex_wb_pipe_o.sys_wfi_insn       ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.sys_wfe_insn       == U2.ex_stage_i.ex_wb_pipe_o.sys_wfe_insn       ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.first_op           == U2.ex_stage_i.ex_wb_pipe_o.first_op           ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.last_op            == U2.ex_stage_i.ex_wb_pipe_o.last_op            ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.last_sec_op        == U2.ex_stage_i.ex_wb_pipe_o.last_sec_op        ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.abort_op           == U2.ex_stage_i.ex_wb_pipe_o.abort_op           ) &&
+  (U1.ex_stage_i.ex_wb_pipe_o.csr_impl_wr        == U2.ex_stage_i.ex_wb_pipe_o.csr_impl_wr        ) &&
+  (U1.ex_stage_i.mul.mult_i.mulh_acc == U2.ex_stage_i.mul.mult_i.mulh_acc) &&
+  (U1.ex_stage_i.mul.mult_i.mulh_state == U2.ex_stage_i.mul.mult_i.mulh_state) &&
+  (U1.gen_basic_interrupt.int_controller_i.irq_q == U2.gen_basic_interrupt.int_controller_i.irq_q) &&
+  (U1.id_stage_i.id_ex_pipe_o.alu_en           == U2.id_stage_i.id_ex_pipe_o.alu_en           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.alu_bch          == U2.id_stage_i.id_ex_pipe_o.alu_bch          ) &&
+  (U1.id_stage_i.id_ex_pipe_o.alu_jmp          == U2.id_stage_i.id_ex_pipe_o.alu_jmp          ) &&
+  (U1.id_stage_i.id_ex_pipe_o.alu_operator     == U2.id_stage_i.id_ex_pipe_o.alu_operator     ) &&
+  (U1.id_stage_i.id_ex_pipe_o.alu_operand_a    == U2.id_stage_i.id_ex_pipe_o.alu_operand_a    ) &&
+  (U1.id_stage_i.id_ex_pipe_o.alu_operand_b    == U2.id_stage_i.id_ex_pipe_o.alu_operand_b    ) &&
+  (U1.id_stage_i.id_ex_pipe_o.operand_c        == U2.id_stage_i.id_ex_pipe_o.operand_c        ) &&
+  (U1.id_stage_i.id_ex_pipe_o.mul_en           == U2.id_stage_i.id_ex_pipe_o.mul_en           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.mul_operator     == U2.id_stage_i.id_ex_pipe_o.mul_operator     ) &&
+  (U1.id_stage_i.id_ex_pipe_o.mul_signed_mode  == U2.id_stage_i.id_ex_pipe_o.mul_signed_mode  ) &&
+  (U1.id_stage_i.id_ex_pipe_o.div_en           == U2.id_stage_i.id_ex_pipe_o.div_en           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.div_operator     == U2.id_stage_i.id_ex_pipe_o.div_operator     ) &&
+  (U1.id_stage_i.id_ex_pipe_o.muldiv_operand_a == U2.id_stage_i.id_ex_pipe_o.muldiv_operand_a ) &&
+  (U1.id_stage_i.id_ex_pipe_o.muldiv_operand_b == U2.id_stage_i.id_ex_pipe_o.muldiv_operand_b ) &&
+  (U1.id_stage_i.id_ex_pipe_o.csr_en           == U2.id_stage_i.id_ex_pipe_o.csr_en           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.csr_op           == U2.id_stage_i.id_ex_pipe_o.csr_op           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.lsu_en           == U2.id_stage_i.id_ex_pipe_o.lsu_en           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.lsu_we           == U2.id_stage_i.id_ex_pipe_o.lsu_we           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.lsu_size         == U2.id_stage_i.id_ex_pipe_o.lsu_size         ) &&
+  (U1.id_stage_i.id_ex_pipe_o.lsu_sext         == U2.id_stage_i.id_ex_pipe_o.lsu_sext         ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_en           == U2.id_stage_i.id_ex_pipe_o.sys_en           ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_dret_insn    == U2.id_stage_i.id_ex_pipe_o.sys_dret_insn    ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_ebrk_insn    == U2.id_stage_i.id_ex_pipe_o.sys_ebrk_insn    ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_ecall_insn   == U2.id_stage_i.id_ex_pipe_o.sys_ecall_insn   ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_fence_insn   == U2.id_stage_i.id_ex_pipe_o.sys_fence_insn   ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_fencei_insn  == U2.id_stage_i.id_ex_pipe_o.sys_fencei_insn  ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_mret_insn    == U2.id_stage_i.id_ex_pipe_o.sys_mret_insn    ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_wfi_insn     == U2.id_stage_i.id_ex_pipe_o.sys_wfi_insn     ) &&
+  (U1.id_stage_i.id_ex_pipe_o.sys_wfe_insn     == U2.id_stage_i.id_ex_pipe_o.sys_wfe_insn     ) &&
+  (U1.id_stage_i.id_ex_pipe_o.illegal_insn     == U2.id_stage_i.id_ex_pipe_o.illegal_insn     ) &&
+  (U1.id_stage_i.id_ex_pipe_o.trigger_match    == U2.id_stage_i.id_ex_pipe_o.trigger_match    ) &&
+  (U1.id_stage_i.id_ex_pipe_o.rf_we            == U2.id_stage_i.id_ex_pipe_o.rf_we            ) &&
+  (U1.id_stage_i.id_ex_pipe_o.rf_waddr         == U2.id_stage_i.id_ex_pipe_o.rf_waddr         ) &&
+  (U1.id_stage_i.id_ex_pipe_o.pc_next          == U2.id_stage_i.id_ex_pipe_o.pc_next          ) &&
+  (U1.id_stage_i.id_ex_pipe_o.pc               == U2.id_stage_i.id_ex_pipe_o.pc               ) &&
+  (U1.id_stage_i.id_ex_pipe_o.instr            == U2.id_stage_i.id_ex_pipe_o.instr            ) &&
+  (U1.id_stage_i.id_ex_pipe_o.instr_meta       == U2.id_stage_i.id_ex_pipe_o.instr_meta       ) &&
+  (U1.id_stage_i.id_ex_pipe_o.instr_valid      == U2.id_stage_i.id_ex_pipe_o.instr_valid      ) &&
+  (U1.id_stage_i.id_ex_pipe_o.priv_lvl         == U2.id_stage_i.id_ex_pipe_o.priv_lvl         ) &&
+  (U1.id_stage_i.id_ex_pipe_o.first_op         == U2.id_stage_i.id_ex_pipe_o.first_op         ) &&
+  (U1.id_stage_i.id_ex_pipe_o.last_op          == U2.id_stage_i.id_ex_pipe_o.last_op          ) &&
+  (U1.id_stage_i.id_ex_pipe_o.last_sec_op      == U2.id_stage_i.id_ex_pipe_o.last_sec_op      ) &&
+  (U1.id_stage_i.id_ex_pipe_o.abort_op         == U2.id_stage_i.id_ex_pipe_o.abort_op         ) &&
+  (U1.id_stage_i.secure_ctrl_flow.multi_op_cnt == U2.id_stage_i.secure_ctrl_flow.multi_op_cnt) &&
+  (U1.if_stage_i.gen_dummy_instr.dummy_instr_i.cnt_q == U2.if_stage_i.gen_dummy_instr.dummy_instr_i.cnt_q) &&
+  (U1.if_stage_i.gen_seq.sequencer_i.instr_cnt_q == U2.if_stage_i.gen_seq.sequencer_i.instr_cnt_q) &&
+  (U1.if_stage_i.gen_seq.sequencer_i.seq_state_q == U2.if_stage_i.gen_seq.sequencer_i.seq_state_q) &&
+  (U1.if_stage_i.if_id_pipe_o == U2.if_stage_i.if_id_pipe_o) &&
+  (U1.if_stage_i.instruction_obi_i.obi_a_req_q.addr      == U2.if_stage_i.instruction_obi_i.obi_a_req_q.addr     ) &&
+  (U1.if_stage_i.instruction_obi_i.obi_a_req_q.memtype   == U2.if_stage_i.instruction_obi_i.obi_a_req_q.memtype  ) &&
+  (U1.if_stage_i.instruction_obi_i.obi_a_req_q.prot      == U2.if_stage_i.instruction_obi_i.obi_a_req_q.prot     ) &&
+  (U1.if_stage_i.instruction_obi_i.obi_a_req_q.dbg       == U2.if_stage_i.instruction_obi_i.obi_a_req_q.dbg      ) &&
+  (U1.if_stage_i.instruction_obi_i.obi_a_req_q.achk      == U2.if_stage_i.instruction_obi_i.obi_a_req_q.achk     ) &&
+  (U1.if_stage_i.instruction_obi_i.obi_a_req_q.integrity == U2.if_stage_i.instruction_obi_i.obi_a_req_q.integrity) &&
+  (U1.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.cnt_q == U2.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.cnt_q) &&
+  (U1.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.fifo_q == U2.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.fifo_q) &&
+  (U1.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.gntpar_err_q == U2.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.gntpar_err_q) &&
+  (U1.if_stage_i.instruction_obi_i.state_q == U2.if_stage_i.instruction_obi_i.state_q) &&
+  (U1.if_stage_i.mpu_i.state_q == U2.if_stage_i.mpu_i.state_q) &&
+  (U1.if_stage_i.pc_check_i.bch_taken_q == U2.if_stage_i.pc_check_i.bch_taken_q) &&
+  (U1.if_stage_i.pc_check_i.compare_enable_q == U2.if_stage_i.pc_check_i.compare_enable_q) &&
+  (U1.if_stage_i.pc_check_i.enable_q == U2.if_stage_i.pc_check_i.enable_q) &&
+  (U1.if_stage_i.pc_check_i.if_id_q == U2.if_stage_i.pc_check_i.if_id_q) &&
+  (U1.if_stage_i.pc_check_i.jmp_taken_q == U2.if_stage_i.pc_check_i.jmp_taken_q) &&
+  (U1.if_stage_i.pc_check_i.pc_mux_q == U2.if_stage_i.pc_check_i.pc_mux_q) &&
+  (U1.if_stage_i.pc_check_i.pc_set_clicv_q == U2.if_stage_i.pc_check_i.pc_set_clicv_q) &&
+  (U1.if_stage_i.pc_check_i.pc_set_q == U2.if_stage_i.pc_check_i.pc_set_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.addr_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.addr_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.aligned_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.aligned_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.complete_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.complete_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.instr_cnt_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.instr_cnt_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.instr_priv_lvl_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.instr_priv_lvl_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.is_clic_ptr_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.is_clic_ptr_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.is_mret_ptr_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.is_mret_ptr_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.is_tbljmp_ptr_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.is_tbljmp_ptr_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.n_flush_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.n_flush_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.outstanding_cnt_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.outstanding_cnt_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.pop_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.pop_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.ptr_fetch_accepted_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.ptr_fetch_accepted_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.resp_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.resp_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.rptr == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.rptr) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.valid_q == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.valid_q) &&
+  (U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.wptr == U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.wptr) &&
+  (U1.if_stage_i.prefetch_unit_i.prefetcher_i.state_q == U2.if_stage_i.prefetch_unit_i.prefetcher_i.state_q) &&
+  (U1.if_stage_i.prefetch_unit_i.prefetcher_i.trans_addr_q == U2.if_stage_i.prefetch_unit_i.prefetcher_i.trans_addr_q) &&
+  (U1.if_stage_i.prefetch_unit_i.prefetcher_i.trans_priv_lvl_q == U2.if_stage_i.prefetch_unit_i.prefetcher_i.trans_priv_lvl_q) &&
+  (U1.if_stage_i.prefetch_unit_i.prefetcher_i.trans_ptr_access_q == U2.if_stage_i.prefetch_unit_i.prefetcher_i.trans_ptr_access_q) &&
+  (U1.load_store_unit_i.cnt_q == U2.load_store_unit_i.cnt_q) &&
+  (U1.load_store_unit_i.data_obi_i.secure.integrity_fifo_i.cnt_q == U2.load_store_unit_i.data_obi_i.secure.integrity_fifo_i.cnt_q) &&
+  (U1.load_store_unit_i.data_obi_i.secure.integrity_fifo_i.fifo_q == U2.load_store_unit_i.data_obi_i.secure.integrity_fifo_i.fifo_q) &&
+  (U1.load_store_unit_i.data_obi_i.secure.integrity_fifo_i.gntpar_err_q == U2.load_store_unit_i.data_obi_i.secure.integrity_fifo_i.gntpar_err_q) &&
+  (U1.load_store_unit_i.gen_wpt.wpt_i.state_q == U2.load_store_unit_i.gen_wpt.wpt_i.state_q) &&
+  (U1.load_store_unit_i.gen_wpt.wpt_i.wpt_match_q == U2.load_store_unit_i.gen_wpt.wpt_i.wpt_match_q) &&
+  (U1.load_store_unit_i.last_q == U2.load_store_unit_i.last_q) &&
+  (U1.load_store_unit_i.lsu_sext_q == U2.load_store_unit_i.lsu_sext_q) &&
+  (U1.load_store_unit_i.lsu_size_q == U2.load_store_unit_i.lsu_size_q) &&
+  (U1.load_store_unit_i.lsu_we_q == U2.load_store_unit_i.lsu_we_q) &&
+  (U1.load_store_unit_i.mpu_i.state_q == U2.load_store_unit_i.mpu_i.state_q) &&
+  (U1.load_store_unit_i.rdata_offset_q == U2.load_store_unit_i.rdata_offset_q) &&
+  (U1.load_store_unit_i.rdata_q == U2.load_store_unit_i.rdata_q) &&
+  (U1.load_store_unit_i.response_filter_i.bus_cnt_q == U2.load_store_unit_i.response_filter_i.bus_cnt_q) &&
+  (U1.load_store_unit_i.response_filter_i.core_cnt_q == U2.load_store_unit_i.response_filter_i.core_cnt_q) &&
+  (U1.load_store_unit_i.response_filter_i.outstanding_q == U2.load_store_unit_i.response_filter_i.outstanding_q) &&
+  (U1.load_store_unit_i.split_q == U2.load_store_unit_i.split_q) &&
+  (U1.load_store_unit_i.trans_valid_q == U2.load_store_unit_i.trans_valid_q) &&
+  (U1.load_store_unit_i.write_buffer_i.state == U2.load_store_unit_i.write_buffer_i.state) &&
+  (U1.load_store_unit_i.write_buffer_i.trans_q == U2.load_store_unit_i.write_buffer_i.trans_q) &&
+//  (U1.register_file_wrapper_i.register_file_i.mem == U2.register_file_wrapper_i.register_file_i.mem) &&
+  (U1.sleep_unit_i.core_busy_q == U2.sleep_unit_i.core_busy_q) &&
+  (U1.sleep_unit_i.core_clock_gate_i.clk_en == U2.sleep_unit_i.core_clock_gate_i.clk_en) &&
+  (U1.sleep_unit_i.fetch_enable_q == U2.sleep_unit_i.fetch_enable_q) &&
+  (U1.wb_stage_i.lsu_mpu_status_q == U2.wb_stage_i.lsu_mpu_status_q) &&
+  (U1.wb_stage_i.lsu_valid_q == U2.wb_stage_i.lsu_valid_q) &&
+  (U1.wb_stage_i.lsu_wpt_match_q == U2.wb_stage_i.lsu_wpt_match_q)
+);
+endfunction

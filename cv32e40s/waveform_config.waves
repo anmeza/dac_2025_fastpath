@@ -1,0 +1,91 @@
+naming_style sv
+# Name Radix Color Is_Clock
+clk DEFAULT DEFAULT { true} { false}
+rst DEFAULT DEFAULT { false} { false}
+{SEPARATOR_Instruction Memory} NONE DEFAULT { false} { false}
+U1.instr_rvalid_i DEFAULT DEFAULT { false} { false}
+U2.instr_rvalid_i DEFAULT DEFAULT { false} { false}
+U1.instr_rdata_i DEFAULT DEFAULT { false} { false}
+U2.instr_rdata_i DEFAULT DEFAULT { false} { false}
+{SEPARATOR_Data Memory} NONE DEFAULT { false} { false}
+U1.data_rdata_i DEFAULT DEFAULT { false} { false}
+U2.data_rdata_i DEFAULT DEFAULT { false} { false}
+SEPARATOR_CSR NONE DEFAULT { false} { false}
+U1.cs_registers_i.xsecure_ctrl_o DEFAULT DEFAULT { false} { false}
+U2.cs_registers_i.xsecure_ctrl_o DEFAULT DEFAULT { false} { false}
+{SEPARATOR_Register File} NONE DEFAULT { false} { false}
+U1.register_file_wrapper_i.raddr_i DEFAULT DEFAULT { false} { false}
+U2.register_file_wrapper_i.raddr_i DEFAULT DEFAULT { false} { false}
+U1.register_file_wrapper_i.rdata_o DEFAULT DEFAULT { false} { false}
+U2.register_file_wrapper_i.rdata_o DEFAULT DEFAULT { false} { false}
+U1.register_file_wrapper_i.we_i DEFAULT DEFAULT { false} { false}
+U2.register_file_wrapper_i.we_i DEFAULT DEFAULT { false} { false}
+U1.register_file_wrapper_i.waddr_i DEFAULT DEFAULT { false} { false}
+U2.register_file_wrapper_i.waddr_i DEFAULT DEFAULT { false} { false}
+U1.register_file_wrapper_i.wdata_i DEFAULT DEFAULT { false} { false}
+U2.register_file_wrapper_i.wdata_i DEFAULT DEFAULT { false} { false}
+{SEPARATOR_1 cycle fan-out} NONE DEFAULT { false} { false}
+U1.instr_addr_o DEFAULT DEFAULT { false} { false}
+U2.instr_addr_o DEFAULT DEFAULT { false} { false}
+U1.instr_achk_o DEFAULT DEFAULT { false} { false}
+U2.instr_achk_o DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.instruction_obi_i.obi_a_req_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.instruction_obi_i.obi_a_req_q DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.addr_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.addr_q DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.prefetch_unit_i.prefetcher_i.trans_addr_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.prefetch_unit_i.prefetcher_i.trans_addr_q DEFAULT DEFAULT { false} { false}
+U1.data_addr_o DEFAULT DEFAULT { false} { false}
+U2.data_addr_o DEFAULT DEFAULT { false} { false}
+U1.data_achk_o DEFAULT DEFAULT { false} { false}
+U2.data_achk_o DEFAULT DEFAULT { false} { false}
+U1.id_stage_i.id_ex_pipe_o DEFAULT DEFAULT { false} { false}
+U2.id_stage_i.id_ex_pipe_o DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.aligned_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.aligned_q DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.prefetch_unit_i.alignment_buffer_i.complete_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.prefetch_unit_i.alignment_buffer_i.complete_q DEFAULT DEFAULT { false} { false}
+U1.data_be_o DEFAULT DEFAULT { false} { false}
+U2.data_be_o DEFAULT DEFAULT { false} { false}
+U1.data_wdata_o DEFAULT DEFAULT { false} { false}
+U2.data_wdata_o DEFAULT DEFAULT { false} { false}
+U1.data_req_o DEFAULT DEFAULT { false} { false}
+U2.data_req_o DEFAULT DEFAULT { false} { false}
+U1.data_reqpar_o DEFAULT DEFAULT { false} { false}
+U2.data_reqpar_o DEFAULT DEFAULT { false} { false}
+{SEPARATOR_2 cycle fan-out} NONE DEFAULT { false} { false}
+U1.ex_stage_i.mul.mult_i.mulh_acc DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.mul.mult_i.mulh_acc DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.ex_wb_pipe_o DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.ex_wb_pipe_o DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.div.div_i.divisor_q DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.div.div_i.divisor_q DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.div.div_i.cnt_q DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.div.div_i.cnt_q DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.div.div_i.remainder_q DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.div.div_i.remainder_q DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.div.div_i.res_inv_q DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.div.div_i.res_inv_q DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.div.div_i.comp_inv_q DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.div.div_i.comp_inv_q DEFAULT DEFAULT { false} { false}
+{SEPARATOR_3 cycle fan-out} NONE DEFAULT { false} { false}
+U1.load_store_unit_i.rdata_q DEFAULT DEFAULT { false} { false}
+U2.load_store_unit_i.rdata_q DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.div.div_i.quotient_q DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.div.div_i.quotient_q DEFAULT DEFAULT { false} { false}
+U1.ex_stage_i.div.div_i.state DEFAULT DEFAULT { false} { false}
+U2.ex_stage_i.div.div_i.state DEFAULT DEFAULT { false} { false}
+{SEPARATOR_IPC 1 cycle fan-out} NONE DEFAULT { false} { false}
+U1.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.cnt_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.cnt_q DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.fifo_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.fifo_q DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.gntpar_err_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.instruction_obi_i.secure.integrity_fifo_i.gntpar_err_q DEFAULT DEFAULT { false} { false}
+U1.if_stage_i.mpu_i.state_q DEFAULT DEFAULT { false} { false}
+U2.if_stage_i.mpu_i.state_q DEFAULT DEFAULT { false} { false}
+{SEPARATOR_IPC 2 cycle fan-out} NONE DEFAULT { false} { false}
+U1.alert_i.alert_major_o DEFAULT DEFAULT { false} { false}
+U2.alert_i.alert_major_o DEFAULT DEFAULT { false} { false}
+U1.alert_major_o DEFAULT DEFAULT { false} { false}
+U2.alert_major_o DEFAULT DEFAULT { false} { false}
